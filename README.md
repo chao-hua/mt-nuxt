@@ -1,6 +1,6 @@
 # mt-app
 
-> My perfect Nuxt.js project
+> A Nuxt.js project
 
 ## Build Setup
 
