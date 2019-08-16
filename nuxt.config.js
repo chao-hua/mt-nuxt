@@ -57,7 +57,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    transpile: [/^element-ui/],
+    transpile: [/^element-ui/]
     /*
     ** You can extend webpack config here
     */
@@ -73,6 +73,6 @@ module.exports = {
       }
     }, */
     // https://github.com/nuxt/nuxt.js/issues/3804
-    cache: false
+    // cache: false
   }
 }
