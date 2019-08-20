@@ -7,4 +7,4 @@ const UserSchema = new Schema({
   email: { type: String, require: true }
 })
 
-export default UserSchema.model('User', UserSchema, 'user')
+export default mongoose.model('User', UserSchema, 'user')

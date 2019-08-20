@@ -1,5 +1,5 @@
 export default {
-  dbs: 'mongodb:127.0.0.1:27017/student',
+  dbs: 'mongodb://127.0.0.1:27017/student',
   redis: {
     get host() {
       return '127.0.0.1'
@@ -9,8 +9,14 @@ export default {
     }
   },
   smtp: {
+    get service() {
+      return 'qq'
+    },
     get host() {
       return 'smtp:qq.com'
+    },
+    get port() {
+      return 587
     },
     get user() {
       return '99277429@qq.com'
