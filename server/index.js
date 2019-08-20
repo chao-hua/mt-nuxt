@@ -23,7 +23,6 @@ app.use(
   })
 )
 app.use(json())
-
 mongoose.connect(dbConfig.dbs, {
   useNewUrlParser: true
 })
