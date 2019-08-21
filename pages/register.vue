@@ -24,9 +24,7 @@
         </el-form-item>
         <el-form-item label="邮箱" prop="email">
           <el-input v-model="ruleForm.email" />
-          <el-button size="mini" round @click="sendMsg">
-            发送验证码
-          </el-button>
+          <el-button size="mini" round @click="sendMsg">发送验证码</el-button>
           <span class="status">{{ statusMsg }}</span>
         </el-form-item>
         <el-form-item label="验证码" prop="code">
@@ -39,17 +37,11 @@
           <el-input v-model="ruleForm.cpwd" type="password" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="register">
-            同意以下协议并注册
-          </el-button>
-          <div class="error">
-            {{ error }}
-          </div>
+          <el-button type="primary" @click="register">同意以下协议并注册</el-button>
+          <div class="error">{{ error }}</div>
         </el-form-item>
         <el-form-item>
-          <a class="f1" href="http://www.meituan.com/about/terms" target="_blank">
-            《美团网用户协议》
-          </a>
+          <a class="f1" href="http://www.meituan.com/about/terms" target="_blank">《美团网用户协议》</a>
         </el-form-item>
       </el-form>
     </section>
@@ -108,8 +100,75 @@ export default {
     }
   },
   methods: {
-    sendMsg() { },
-    register() { }
+    sendMsg: function () {
+      const self = this
+      let namePass
+      let emailPass
+      if (self.timerid) {
+        return false
+      }
+      this.$refs.ruleForm.validateField('name', (valid) => {
+        namePass = valid
+      })
+      self.statusMsg = ''
+      if (namePass) {
+        return false
+      }
+      this.$refs.ruleForm.validateField('email', (valid) => {
+        emailPass = valid
+      })
+      if (!namePass && !emailPass) {
+        self.$axios.post('/user/verify', {
+          username: encodeURIComponent(self.ruleForm.name),
+          email: self.ruleForm.email
+        }).then(({
+          status,
+          data
+        }) => {
+          if (status === 200 && data && data.code === 0) {
+            let count = 60
+            self.statusMsg = `验证码已发送,剩余${count--}秒`
+            self.timerid = setInterval(function () {
+              self.statusMsg = `验证码已发送,剩余${count--}秒`
+              if (count === 0) {
+                clearInterval(self.timerid)
+                self.statusMsg = ''
+              }
+            }, 1000)
+          } else {
+            self.statusMsg = data.msg
+          }
+        })
+      }
+    },
+    register() {
+      this.$refs.ruleForm.validate((valid) => {
+        if (valid) {
+          this.$axios.post('/user/signup', {
+            username: encodeURIComponent(this.ruleForm.name),
+            email: this.ruleForm.email,
+            code: this.ruleForm.code,
+            password: this.ruleForm.pwd
+          }).then(({
+            status,
+            data
+          }) => {
+            if (status === 200) {
+              if (data && data.code === 0) {
+                location.href = '/login'
+              } else {
+                this.error = data.msg
+              }
+            } else {
+              this.error = `服务器错误，错误码：${status}`
+            }
+            setTimeout(() => {
+              this.error = ''
+            }, 5000)
+          })
+        }
+      })
+    }
   }
 }
 </script>

@@ -113,9 +113,9 @@ router.post('/verify', async (ctx) => {
 
   const transporter = nodeMailer.createTransport({
     service: config.smtp.service,
-    host: config.smtp.host,
     port: config.smtp.port,
     secure: false,
+    secureConnection: true, // 使用 SSL
     auth: {
       user: config.smtp.user,
       pass: config.smtp.pass
@@ -130,7 +130,7 @@ router.post('/verify', async (ctx) => {
   }
 
   const mailOptions = {
-    form: `认证邮件 <${config.smtp.user}>`,
+    from: `认证邮件 <${config.smtp.user}>`,
     to: ko.email,
     subject: '美团网注册码',
     html: `您正在美团网进行注册，注册码是${ko.code}`
@@ -155,6 +155,7 @@ router.post('/verify', async (ctx) => {
       )
     }
   })
+
   ctx.body = {
     code: 0,
     msg: '验证码已发送，有效期为一分钟'

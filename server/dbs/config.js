@@ -13,29 +13,29 @@ export default {
       return 'qq'
     },
     get host() {
-      return 'smtp:qq.com'
+      return 'smtp.qq.com'
     },
     get port() {
-      return 587
+      return 465
     },
     get user() {
-      return '99277429@qq.com'
+      return 'xxx@qq.com'
     },
     get pass() {
       return ''
-    }
-  },
-  get code() {
-    return () => {
-      return Math.random()
-        .toString(16)
-        .slice(2, 6)
-        .toUpperCase()
-    }
-  },
-  get expire() {
-    return () => {
-      return new Date().getTime() + 60 * 60 * 1000
+    },
+    get code() {
+      return () => {
+        return Math.random()
+          .toString(16)
+          .slice(2, 6)
+          .toUpperCase()
+      }
+    },
+    get expire() {
+      return () => {
+        return new Date().getTime() + 60 * 60 * 1000
+      }
     }
   }
 }

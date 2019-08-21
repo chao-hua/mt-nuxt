@@ -12,7 +12,6 @@ import passport from './utils/passport'
 import User from './interface/user'
 
 const app = new Koa()
-
 // redis mongo
 app.keys = ['mt', 'keyskeys']
 app.proxy = true
@@ -51,7 +50,6 @@ async function start() {
   }
   // interface
   app.use(User.routes()).use(User.allowedMethods())
-
   app.use((ctx) => {
     ctx.status = 200
     ctx.respond = false // Bypass Koa's built-in response handling
