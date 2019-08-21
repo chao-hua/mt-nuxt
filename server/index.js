@@ -9,6 +9,7 @@ import { Nuxt, Builder } from 'nuxt'
 import dbConfig from './dbs/config'
 import passport from './utils/passport'
 import User from './interface/user'
+import Geo from './interface/geo'
 
 const app = new Koa()
 
@@ -50,6 +51,7 @@ async function start() {
   }
   // Interface
   app.use(User.routes()).use(User.allowedMethods())
+  app.use(Geo.routes()).use(Geo.allowedMethods())
 
   app.use((ctx) => {
     ctx.status = 200
