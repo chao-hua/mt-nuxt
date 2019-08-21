@@ -1,4 +1,3 @@
-// const Koa = require('koa')
 import Koa from 'koa'
 import mongoose from 'mongoose'
 import bodyParser from 'koa-bodyparser'
@@ -12,7 +11,8 @@ import passport from './utils/passport'
 import User from './interface/user'
 
 const app = new Koa()
-// redis mongo
+
+// redis mongodb session json passport
 app.keys = ['mt', 'keyskeys']
 app.proxy = true
 app.use(session({ key: 'mt', prefix: 'mt:uid', store: new Redis() }))
@@ -48,8 +48,9 @@ async function start() {
   } else {
     await nuxt.ready()
   }
-  // interface
+  // Interface
   app.use(User.routes()).use(User.allowedMethods())
+
   app.use((ctx) => {
     ctx.status = 200
     ctx.respond = false // Bypass Koa's built-in response handling

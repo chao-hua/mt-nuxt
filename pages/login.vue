@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import CryptoJS from 'crypto-js'
 export default {
   layout: 'blank',
   data() {
@@ -52,8 +53,7 @@ export default {
       if (this.username && this.password) {
         this.$axios.post('/user/signin', {
           username: window.encodeURIComponent(this.username),
-          // password: CryptoJS.MD5(this.password).toString()
-          password: this.password
+          password: CryptoJS.MD5(this.password).toString()
         }).then(({ status, data }) => {
           if (status === 200) {
             if (data && data.code === 0) {
@@ -64,6 +64,9 @@ export default {
           } else {
             this.error = `服务器出错`
           }
+          setTimeout(() => {
+            this.error = ''
+          }, 5000)
         })
       }
     }

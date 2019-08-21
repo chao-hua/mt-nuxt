@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import CryptoJS from 'crypto-js'
 export default {
   layout: 'blank',
   data() {
@@ -148,7 +149,7 @@ export default {
             username: encodeURIComponent(this.ruleForm.name),
             email: this.ruleForm.email,
             code: this.ruleForm.code,
-            password: this.ruleForm.pwd
+            password: CryptoJS.MD5(this.ruleForm.pwd).toString()
           }).then(({
             status,
             data
