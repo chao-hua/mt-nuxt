@@ -34,7 +34,7 @@ export default {
         p = Pinyin.getFullChars(item.name).toLocaleUpperCase().slice(0, 1)
         c = p.charCodeAt(0)
         if (c > 64 && c < 91) {
-          // 不存在该字母
+          // 不存在该字母，添加字母
           if (!d[p]) {
             d[p] = []
           }
