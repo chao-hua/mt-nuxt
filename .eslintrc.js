@@ -19,6 +19,7 @@ module.exports = {
     'nuxt/no-cjs-in-config': 0,
     'space-before-function-paren': 0,
     'object-shorthand': 0,
-    'vue/html-self-closing': 0
+    'vue/html-self-closing': 0,
+    'unicorn/prefer-includes' : 0
   }
 }
