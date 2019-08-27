@@ -61,7 +61,7 @@ export default {
   methods: {
     querySearchAsync: _.debounce(async function (query, cb) {
       if (this.cities.length) {
-        cb(this.cities.filter((item) => { return item.value.indexOf(query) > -1 }))
+        cb(this.cities.filter((item) => { return item.value.includes(query) }))
       } else {
         const { status, data: { city } } = await this.$axios.get('/geo/city')
         if (status === 200) {
@@ -70,7 +70,7 @@ export default {
               value: item.name
             }
           })
-          cb(this.cities.filter((item) => { return item.value.indexOf(query) > -1 }))
+          cb(this.cities.filter((item) => { return item.value.includes(query) }))
         } else {
           const emity = []
           cb(emity)
