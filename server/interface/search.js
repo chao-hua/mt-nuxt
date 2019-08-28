@@ -37,4 +37,22 @@ router.get('/top', async (ctx) => {
   }
 })
 
+router.get('/resultsByKeywords', async (ctx) => {
+  const city = ctx.store ? ctx.store.geo.position.city : ctx.query.city
+  const {
+    status,
+    data: { count, pois }
+  } = await axios.get('http://cp-tools.cn/search/resultsByKeywords', {
+    params: {
+      city,
+      keyword: ctx.query.keyword
+    }
+  })
+  ctx.body = {
+    code: status === 200 ? 0 : -1,
+    count: status === 200 ? count : 0,
+    pois: status === 200 ? pois : []
+  }
+})
+
 export default router
