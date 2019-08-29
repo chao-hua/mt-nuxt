@@ -11,6 +11,7 @@ import passport from './utils/passport'
 import User from './interface/user'
 import Geo from './interface/geo'
 import Search from './interface/search'
+import Categroy from './interface/categroy'
 
 const app = new Koa()
 
@@ -54,6 +55,7 @@ async function start() {
   app.use(User.routes()).use(User.allowedMethods())
   app.use(Geo.routes()).use(Geo.allowedMethods())
   app.use(Search.routes()).use(Search.allowedMethods())
+  app.use(Categroy.routes()).use(Categroy.allowedMethods())
 
   app.use((ctx) => {
     ctx.status = 200
