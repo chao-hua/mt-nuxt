@@ -50,27 +50,28 @@ export default {
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
-}
-.classic {
-  display: flex;
-  padding-bottom: 10px;
-  > dt {
-    width: 80px;
-    &:nth-child(2) {
-      border-radius: 100px;
-      background: #13d1be;
-      color: #fff;
-      height: 22px;
-      line-height: 22px;
-      width: 40px;
-      box-sizing: border-box;
-      margin-right: 40px;
-      text-align: center;
+  .classic {
+    display: flex;
+    padding-bottom: 10px;
+    align-items: center;
+    line-height: 30px;
+    > dt {
+      width: 80px;
+      vertical-align: middle;
+      &:nth-child(2) {
+        border-radius: 100px;
+        background: #13d1be;
+        color: #fff;
+        height: 22px;
+        line-height: 22px;
+        width: 40px;
+        box-sizing: border-box;
+        margin-right: 40px;
+        text-align: center;
+      }
     }
-  }
-  &:nth-child(1) {
-    dd {
-      border-bottom: 1px solid #ddd;
+    > dd {
+      width: 80px;
     }
   }
 }
