@@ -42,11 +42,34 @@ export default {
       }
     })
 
-    if (status === 200) {
+    const { status: status2, data: { count, pois } } = await ctx.$axios.get('/search/resultsByKeywords', {
+      params: {
+        city,
+        keyword
+      }
+    })
+
+    if (status === 200 && status2 === 200 && count > 0) {
       return {
         keyword,
+        list: pois.filter((item) => { return item.photos.length }).map((item) => {
+          return {
+            type: item.type,
+            img: item.photos[0].url,
+            name: item.name,
+            comment: Math.floor(Math.random() * 10000),
+            rate: Number(item.biz_ext.rating),
+            price: Number(item.biz_ext.cost),
+            scene: item.tag,
+            tel: item.tel,
+            status: '可订明日',
+            location: item.location,
+            module: item.type.split(';')[0]
+          }
+        }),
         areas: areas.filter(item => item.type !== '').slice(0, 5),
-        types: types.filter(item => item.type !== '').slice(0, 5)
+        types: types.filter(item => item.type !== '').slice(0, 5),
+        point: (pois.find(item => item.location).location || '').split(',')
       }
     }
   }
